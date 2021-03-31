@@ -9,6 +9,9 @@ public class Main {
         // Write your code here
         Board board = new Board();
         board.run();
+        Game game = new Game(board);
+        game.runGame();
+
     }
 }
 

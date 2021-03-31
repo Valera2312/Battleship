@@ -5,9 +5,12 @@ import java.util.Scanner;
 public class Board {
 
 
-        private final String[][] field = new String[11][11];
+        final String[][] field = new String[11][11];
         private Ship[] ships;
-        private int x1, y1, x2, y2;
+        int x1;
+        private int y1;
+        private int x2;
+        private int y2;
 
         public Board() {
 
@@ -34,7 +37,7 @@ public class Board {
                 showField();
                 i++;
             }
-            System.out.println("The game starts!");
+
         }
         public void createField() {
 
