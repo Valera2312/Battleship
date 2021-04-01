@@ -7,7 +7,7 @@ public class Board {
 
         final String[][] field = new String[11][11];
         private Ship[] ships;
-        int x1;
+         int x1;
         private int y1;
         private int x2;
         private int y2;
