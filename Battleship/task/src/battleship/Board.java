@@ -6,17 +6,27 @@ public class Board {
 
 
         final String[][] field = new String[11][11];
+        final String[][] withFogOFWarField = new String[11][11];
         private Ship[] ships;
-         int x1;
+        int x1;
         private int y1;
         private int x2;
         private int y2;
+        String player;
+
 
         public Board() {
-
             createField();
-            showField();
+            showBattleField();
+
         }
+        public Board(String player) {
+            this.player = player;
+            createField();
+            showBattleField();
+
+
+    }
         public void run() {
             Scanner scanner = new Scanner(System.in);
             int i = 0;
@@ -34,26 +44,30 @@ public class Board {
                     }
                     break;
                 } while (true);
-                showField();
+                showBattleField();
                 i++;
             }
 
         }
         public void createField() {
-
+            System.out.println(this.player +  ", place your ships on the game field");
             char rowNumber = 64;
             for (int i = 0; i < field.length; i++) {
                 for (int j = 0; j < field[i].length; j++) {
                     if (i == 0) {              //если первая строка
                         if (j == 0) {          //если первый столбел первой строки
                             field[i][j] = " ";
+                            withFogOFWarField[i][j] = " ";
                         } else {
                             field[i][j] = String.valueOf(j);
+                            withFogOFWarField[i][j] = String.valueOf(j);
                         }
                     } else {                  //если другие строки
                         if (j == 0) {   //если первый столбел
                             field[i][j] = String.valueOf(rowNumber);
+                            withFogOFWarField[i][j] = String.valueOf(rowNumber);
                         } else {
+                            withFogOFWarField[i][j] = "~";
                             field[i][j] = "~";
                         }
                     }
@@ -91,7 +105,8 @@ public class Board {
             this.y2 = y2;
         }
 
-        public void showField() {
+        public void showBattleField() {
+
             for (String[] strings : field) {
                 for (int j = 0; j < strings.length; j++) {
                     System.out.print(strings[j] + " ");
@@ -99,6 +114,17 @@ public class Board {
                 System.out.print("\n");
             }
         }
+
+        public void showWithFogOfWarBattleField() {
+
+            for (String[] strings : withFogOFWarField) {
+                for (int j = 0; j < strings.length; j++) {
+                    System.out.print(strings[j] + " ");
+                }
+                System.out.print("\n");
+            }
+        }
+
 
         public void createShip() {
 
@@ -143,12 +169,12 @@ public class Board {
                 int maxY = Math.max(y1, y2);
                 int minY = Math.min(y1, y2);
                 if (maxY != 10) {
-                    if (field[x1][maxY + 1].equals("O")) {
+                    if (field[maxY + 1][x1].equals("O")) {
                         System.out.println("Error! You placed it too close to another one. Try again:");
                         return false;
                     }
                 }
-                if (field[x1][minY - 1].equals("O")) {
+                if (field[minY - 1][x1].equals("O")) {
                     System.out.println("Error! You placed it too close to another one. Try again:");
                     return false;
                 }

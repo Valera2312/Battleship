@@ -7,38 +7,26 @@ public class Game {
     private int x;
     private int y;
     Board board;
-    Board withFogOfWar;
+
 
     public Game(Board board) {
         this.board = board;
-        this.withFogOfWar = new Board();
-        setWithFogOfWar();
-
-
     }
 
     public void runGame() {
-        System.out.println("The game starts!");
-        //board.showField();
-        withFogOfWar.showField();
-        System.out.println("Take a shot!");
-        int countSankShip = 0;
-        while (true) {
-
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             createCoordinates(input);
 
             if (checkCoordinate()) {
 
-                String hitOrMiss = (createShot() ? "You hit a ship! Try again:" : "You missed. Try again:");
-                withFogOfWar.showField();
+                String hitOrMiss = (createShot() ? "You hit a ship! Try again:" : "You missed!");
 
                 if (checkSankShip()) {
 
                     if(countCells()==0){
                        System.out.println("You sank the last ship. You won. Congratulations!");
-                       break;
+
                     }
                     System.out.println("You sank a ship! Specify a new target:");
 
@@ -52,27 +40,21 @@ public class Game {
             }
 
         }
-    }
+
 
 
     public boolean createShot() {
         if (board.field[this.x][this.y].equals("O")) {
             board.field[this.x][this.y] = "X";
-            withFogOfWar.field[this.x][this.y] = "X";
+            board.withFogOFWarField[this.x][this.y] = "X";
 
         } else if (board.field[this.x][this.y].equals("~")) {
             board.field[this.x][this.y] = "M";
-            withFogOfWar.field[this.x][this.y] = "M";
+            board.withFogOFWarField[this.x][this.y] = "M";
             return false;
         }
 
         return true;
-    }
-
-    public void setWithFogOfWar() {
-
-        withFogOfWar.createField();
-
     }
 
     public void createCoordinates(String input) {
